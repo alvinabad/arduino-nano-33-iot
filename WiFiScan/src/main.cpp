@@ -14,17 +14,25 @@
  */
 
 
-#include <Arduino.h>
 #include <SPI.h>
 #include <WiFiNINA.h>
-#include <WiFi.h>
+
+void printEncryptionType(int thisType);
+void printMacAddress(byte mac[]);
+void listNetworks();
+void blink();
 
 void setup() {
   //Initialize serial and wait for port to open:
   Serial.begin(9600);
-  while (!Serial) {
-    ; // wait for serial port to connect. Needed for native USB port only
-  }
+  delay(2000);
+
+  // initialize digital pin LED_BUILTIN as an output.
+  pinMode(LED_BUILTIN, OUTPUT);
+
+  //while (!Serial) {
+  //  ; // wait for serial port to connect. Needed for native USB port only
+  //}
 
   // check for the WiFi module:
   if (WiFi.status() == WL_NO_MODULE) {
@@ -49,7 +57,18 @@ void loop() {
   // scan for existing networks:
   Serial.println("Scanning available networks...");
   listNetworks();
-  delay(10000);
+  blink();
+}
+
+void blink() {
+  Serial.println("Blinking LEDs...");
+
+  for (int i=0; i<30; i++) {
+      digitalWrite(LED_BUILTIN, HIGH);
+      delay(100);
+      digitalWrite(LED_BUILTIN, LOW);
+      delay(100);
+  }
 }
 
 void listNetworks() {
@@ -116,3 +135,4 @@ void printMacAddress(byte mac[]) {
   }
   Serial.println();
 }
+
