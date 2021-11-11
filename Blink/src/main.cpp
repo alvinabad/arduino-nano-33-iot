@@ -35,6 +35,8 @@
 
 #define DELAY           100
 
+void blink();
+
 // the setup function runs once when you press reset or power the board
 void setup() {
     Serial.begin(115200);
@@ -49,15 +51,15 @@ void setup() {
 }
 
 void loop() {
-    Serial.print("LED_BUILTIN ON: ");
-    Serial.println(LED_BUILTIN);
+    blink();
+    Serial.println( millis() );
+}
+
+void blink() {
+    Serial.println("Blinking LEDs...");
 
     digitalWrite(LED_BUILTIN, HIGH);
     delay(DELAY);
-  
-    Serial.print("LED_BUILTIN OFF: ");
-    Serial.println(LED_BUILTIN);
-
     digitalWrite(LED_BUILTIN, LOW);
     delay(DELAY);
 }
