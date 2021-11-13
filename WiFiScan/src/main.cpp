@@ -14,6 +14,7 @@
  */
 
 
+#include <Arduino.h>
 #include <SPI.h>
 #include <WiFiNINA.h>
 
