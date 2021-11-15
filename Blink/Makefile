@@ -22,6 +22,8 @@
 # SOFTWARE.
 ################################################################################
 
+VERBOSE		= false
+
 .PHONY:	all \
 	help \
 	compile \
@@ -30,6 +32,7 @@
 	flash-firmware \
 	list-targets \
 	list-boards \
+	test \
 	clean \
 	cleanall
 
@@ -38,6 +41,7 @@ help:
 	@echo "    make all"
 	@echo "    make compile"
 	@echo "    make compiledb"
+	@echo "    make test"
 	@echo "    make upload"
 	@echo "    make flash-firmware"
 	@echo "    make PORT=device upload"
@@ -57,6 +61,13 @@ compile:
 
 compiledb:
 	pio run --target $@
+
+test:
+    ifeq ($(VERBOSE),true)
+	pio test --verbose
+    else
+	pio test
+    endif
 
 flash-firmware: upload
 
